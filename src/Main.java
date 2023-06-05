@@ -5,7 +5,7 @@ public class Main extends JDialog {
     }
 
     private static void showWelcomeDialog() {
-        int option = JOptionPane.showConfirmDialog(null, "Добро пожаловать! Хотите зарегистрироваться в программе?",
+        int option = JOptionPane.showConfirmDialog(null, "Добро пожаловать Хотите зарегистрироваться в программе?",
                 "Регистрация", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
             showLoginDialog();
