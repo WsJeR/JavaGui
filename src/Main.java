@@ -1,31 +1,37 @@
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Main {
+    private static final String[] RESOLUTIONS = {"800x600", "1280x720", "1920x1080"};
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Key Listener Example");
-        frame.setSize(300, 200);
+        JFrame resolutionDialog = new JFrame("Выбор разрешения");
+        resolutionDialog.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        resolutionDialog.setSize(300, 150);
+        resolutionDialog.setLocationRelativeTo(null);
 
-        frame.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
+        JComboBox<String> resolutionComboBox = new JComboBox<>(RESOLUTIONS);
+        resolutionComboBox.setSelectedIndex(0);
 
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    JOptionPane.showMessageDialog(frame, "Меня зовут , нет я сам прихожу.");
-                }
-            }
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(e -> {
+            String selectedResolution = (String) resolutionComboBox.getSelectedItem();
+            String[] dimensions = selectedResolution.split("x");
+            int width = Integer.parseInt(dimensions[0]);
+            int height = Integer.parseInt(dimensions[1]);
 
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
+            JFrame frame = new JFrame("Окно с выбранным разрешением");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(width, height);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+
+            resolutionDialog.dispose();
         });
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        JPanel panel = new JPanel();
+        panel.add(resolutionComboBox);
+        panel.add(okButton);
+        resolutionDialog.getContentPane().add(panel);
 
+        resolutionDialog.setVisible(true);
     }
 }
